@@ -42,6 +42,22 @@ public class Window {
         return instance;
     }
 
+    public static void changeScene(int scene){
+        switch(scene){
+            case 0:
+                currentScene = new LevelEditorScene();
+                currentScene.init();
+                break;
+            case 1:
+                currentScene = new LevelScene();
+                currentScene.init();
+                break;
+            default:
+                assert false : "Unknown scene '" + scene + "'";
+                break;
+        }
+    }
+
     public void run(){
         System.out.println("Starting LWJGL " + Version.getVersion());
 
@@ -143,20 +159,4 @@ public class Window {
 //            System.out.println("FPS: " + (1.0f / dt));
         }
     }
-
-    public static void changeScene(int scene){
-        switch(scene){
-            case 0:
-                currentScene = new LevelEditorScene();
-//                currentScene.init();
-                break;
-            case 1:
-                currentScene = new LevelScene();
-                break;
-            default:
-                assert false : "Unknown scene '" + scene + "'";
-                break;
-        }
-    }
-
 }
