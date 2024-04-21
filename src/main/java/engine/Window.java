@@ -35,15 +35,15 @@ public class Window {
         this.b = 1;
     }
 
-    public static Window get(){
+    public static Window get() {
         if (instance == null) {
             instance = new Window();
         }
         return instance;
     }
 
-    public static void changeScene(int scene){
-        switch(scene){
+    public static void changeScene(int scene) {
+        switch(scene) {
             case 0:
                 currentScene = new LevelEditorScene();
                 currentScene.init();
@@ -58,7 +58,7 @@ public class Window {
         }
     }
 
-    public void run(){
+    public void run() {
         System.out.println("Starting LWJGL " + Version.getVersion());
 
         // initialize window and start run loop
@@ -70,12 +70,12 @@ public class Window {
         Objects.requireNonNull(glfwSetErrorCallback(null)).free();
     }
 
-    public void init(){
+    public void init() {
         // create error callback
         GLFWErrorCallback.createPrint(System.err).set();
 
         // throw error if glfw init fails
-        if (!glfwInit()){
+        if (!glfwInit()) {
             throw new IllegalStateException("Unable to initialize GLFW");
         }
 
@@ -87,7 +87,7 @@ public class Window {
 
         // create the window
         glfwWindow = glfwCreateWindow(this.width, this.height, this.title, NULL, NULL);
-        if (glfwWindow == NULL){
+        if (glfwWindow == NULL) {
             throw new RuntimeException("Failed to create GLFW window");
         }
 
@@ -99,7 +99,7 @@ public class Window {
 
 
         // get thread stack and push a new frame
-        try (MemoryStack stack = stackPush()){
+        try (MemoryStack stack = stackPush()) {
             IntBuffer pWidth = stack.mallocInt(1);
             IntBuffer pHeight = stack.mallocInt(1);
 
@@ -133,7 +133,7 @@ public class Window {
         Window.changeScene(0);
 
     }
-    public void loop(){
+    public void loop() {
         float beginTime = Time.getTime();
         float dt = -1.0f;
         float endTime;

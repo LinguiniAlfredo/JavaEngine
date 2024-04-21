@@ -13,23 +13,23 @@ public class KeyListener {
 
     }
 
-    public static KeyListener get(){
-        if (instance == null){
+    public static KeyListener get() {
+        if (instance == null) {
             instance = new KeyListener();
         }
         return instance;
     }
 
-    public static void keyCallback(long window, int key, int scancode, int action, int mods){
-        if (action == GLFW_PRESS){
+    public static void keyCallback(long window, int key, int scancode, int action, int mods) {
+        if (action == GLFW_PRESS) {
             get().keyPressed[key] = true;
-        } else if (action == GLFW_RELEASE){
+        } else if (action == GLFW_RELEASE) {
             get().keyPressed[key] = false;
         }
     }
 
     public static boolean isKeyPressed(int keycode) {
-        if (keycode < get().keyPressed.length){
+        if (keycode < get().keyPressed.length) {
             return get().keyPressed[keycode];
         } else {
             return false;

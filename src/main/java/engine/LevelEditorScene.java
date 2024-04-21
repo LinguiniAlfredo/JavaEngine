@@ -10,11 +10,11 @@ import static org.lwjgl.opengl.ARBVertexArrayObject.glBindVertexArray;
 import static org.lwjgl.opengl.ARBVertexArrayObject.glGenVertexArrays;
 import static org.lwjgl.opengl.GL20.*;
 
-public class LevelEditorScene extends Scene{
+public class LevelEditorScene extends Scene {
     private int vertexID, fragmentID, shaderProgram;
     private int vaoID, vboID, eboID;
 
-    public LevelEditorScene(){
+    public LevelEditorScene() {
     }
 
     private String vertexShaderSource = "#version 330 core\n" +
@@ -53,14 +53,14 @@ public class LevelEditorScene extends Scene{
     };
 
     @Override
-    public void init(){
+    public void init() {
         // load and compile vertex shader
         vertexID = glCreateShader(GL_VERTEX_SHADER);
         glShaderSource(vertexID, vertexShaderSource);
         glCompileShader(vertexID);
 
         int success = glGetShaderi(vertexID, GL_COMPILE_STATUS);
-        if (success == GL_FALSE){
+        if (success == GL_FALSE) {
             int len = glGetShaderi(vertexID, GL_INFO_LOG_LENGTH);
             System.out.println("vertex shader compilation failed");
             System.out.println(glGetShaderInfoLog(vertexID, len));
@@ -73,7 +73,7 @@ public class LevelEditorScene extends Scene{
         glCompileShader(fragmentID);
 
         success = glGetShaderi(fragmentID, GL_COMPILE_STATUS);
-        if (success == GL_FALSE){
+        if (success == GL_FALSE) {
             int len = glGetShaderi(fragmentID, GL_INFO_LOG_LENGTH);
             System.out.println("fragment shader compilation failed");
             System.out.println(glGetShaderInfoLog(fragmentID, len));
@@ -87,7 +87,7 @@ public class LevelEditorScene extends Scene{
         glLinkProgram(shaderProgram);
 
         success = glGetProgrami(shaderProgram, GL_LINK_STATUS);
-        if (success == GL_FALSE){
+        if (success == GL_FALSE) {
             int len = glGetProgrami(shaderProgram, GL_INFO_LOG_LENGTH);
             System.out.println("linking shaders failed");
             System.out.println(glGetProgramInfoLog(fragmentID, len));
