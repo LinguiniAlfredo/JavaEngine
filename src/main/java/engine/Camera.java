@@ -7,9 +7,11 @@ import org.joml.Vector3f;
 public class Camera {
     private Matrix4f projectionMatrix, viewMatrix;
     public Vector2f position;
+    public Vector2f direction;
 
-    public Camera(Vector2f position) {
+    public Camera(Vector2f position, Vector2f direction) {
         this.position = position;
+        this.direction = direction;
         this.projectionMatrix = new Matrix4f();
         this.viewMatrix = new Matrix4f();
         adjustProjection();
@@ -17,12 +19,12 @@ public class Camera {
 
     public void adjustProjection() {
         projectionMatrix.identity();
-        projectionMatrix.ortho(0.0f, 32.0f * 40.0f, 0.0f, 32.0f * 21.0f, 0.0f, 100.0f);
+        projectionMatrix.ortho(0.0f, 1920.0f/2.0f, 0.0f, 1080.0f/2.0f, 0.0f, 100.0f);
     }
 
     public Matrix4f getViewMatrix() {
 
-        // TODO - IF WEIRD THINGS HAPPEN COME BACK HERE ***************
+        // TODO - If weird things happen come back here ***************
 
         Vector3f cameraFront = new Vector3f(position.x, position.y, -1.0f);
         Vector3f cameraUp = new Vector3f(0.0f, 1.0f, 0.0f);

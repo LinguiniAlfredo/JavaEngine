@@ -6,31 +6,38 @@ import renderer.Shader;
 import renderer.Texture;
 import util.Time;
 
-import java.awt.event.KeyEvent;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
-import static java.lang.Math.max;
 import static org.lwjgl.opengl.ARBVertexArrayObject.glBindVertexArray;
 import static org.lwjgl.opengl.ARBVertexArrayObject.glGenVertexArrays;
+import static org.lwjgl.opengl.GL11.GL_FLOAT;
+import static org.lwjgl.opengl.GL11.GL_TRIANGLES;
+import static org.lwjgl.opengl.GL11.GL_UNSIGNED_INT;
+import static org.lwjgl.opengl.GL11.glDrawElements;
+import static org.lwjgl.opengl.GL13.GL_TEXTURE0;
+import static org.lwjgl.opengl.GL13.glActiveTexture;
+import static org.lwjgl.opengl.GL15.*;
+import static org.lwjgl.opengl.GL15.GL_STATIC_DRAW;
 import static org.lwjgl.opengl.GL20.*;
+import static org.lwjgl.opengl.GL20.glDisableVertexAttribArray;
 
-public class LevelEditorScene extends Scene {
+public class PauseScene extends Scene {
 
     private int vaoID, vboID, eboID;
 
     private Shader defaultShader;
     private Texture boxTexture;
 
-    public LevelEditorScene() {
+    public PauseScene() {
     }
 
     private float[] vertexArray = {
             //position                 //color                     //texture coords
-            100.0f,  -0.0f, 0.0f,      1.0f, 0.0f, 0.0f, 1.0f,     1, 1,    // Bottom right (0)
-             -0.0f, 100.0f, 0.0f,      0.0f, 1.0f, 0.0f, 1.0f,     0, 0,   // Top left (1)
-            100.0f, 100.0f, 0.0f,      0.0f, 0.0f, 1.0f, 1.0f,     1, 0,    // Top right (2)
-             -0.0f,   0.0f, 0.0f,      1.0f, 1.0f, 0.0f, 1.0f,     0, 1,    // Bottom left (3)
+            -50.0f,  50.0f, 0.0f,      1.0f, 0.0f, 0.0f, 1.0f,     0, 1,    // Bottom right (0)
+             50.0f, -50.0f, 0.0f,      0.0f, 1.0f, 0.0f, 1.0f,     1, 0,    // Top left (1)
+             50.0f,  50.0f, 0.0f,      0.0f, 0.0f, 1.0f, 1.0f,     1, 1,    // Top right (2)
+            -50.0f, -50.0f, 0.0f,      1.0f, 1.0f, 0.0f, 1.0f,     0, 0,    // Bottom left (3)
     };
 
     private int[] elementArray = {
@@ -40,7 +47,7 @@ public class LevelEditorScene extends Scene {
 
     @Override
     public void init() {
-        this.camera = new Camera(new Vector2f(), new Vector2f(-1,-1));
+        this.camera = new Camera(new Vector2f(-Window.get().width/2.0f, -Window.get().height/2.0f), new Vector2f(-1,-1));
         this.defaultShader = new Shader("assets/shaders/default.glsl");
         this.boxTexture = new Texture("assets/textures/box.png");
 
@@ -79,6 +86,17 @@ public class LevelEditorScene extends Scene {
 
     @Override
     public void update(float dt) {
+
+        // nostalgia screensaver
+        camera.position.x += (dt * 100.0f) * camera.direction.x;
+        camera.position.y +=  (dt * 80.0f) * camera.direction.y;
+
+        if (Math.abs(camera.position.x) > Window.get().width - 50){
+            camera.direction.x *= -1;
+        }
+        if (Math.abs(camera.position.y) > Window.get().height - 50) {
+            camera.direction.y *= -1;
+        }
 
         defaultShader.use();
 

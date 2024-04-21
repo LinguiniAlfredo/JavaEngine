@@ -10,17 +10,19 @@ import util.Time;
 import java.nio.IntBuffer;
 import java.util.Objects;
 
+import static java.lang.Math.max;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.system.MemoryStack.stackPush;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
 public class Window {
-    private final int width;
-    private final int height;
+    public final int width;
+    public final int height;
     private final String title;
     private long glfwWindow;
     public float r,g,b;
+    public boolean changingScene;
 
     private static Window instance = null;
 
@@ -33,6 +35,7 @@ public class Window {
         this.r = 1;
         this.g = 1;
         this.b = 1;
+        this.changingScene = false;
     }
 
     public static Window get() {
@@ -52,6 +55,9 @@ public class Window {
                 currentScene = new LevelScene();
                 currentScene.init();
                 break;
+            case 2:
+                currentScene = new PauseScene();
+                currentScene.init();
             default:
                 assert false : "Unknown scene '" + scene + "'";
                 break;
@@ -130,7 +136,7 @@ public class Window {
         GL.createCapabilities();
 
         // set starting scene
-        Window.changeScene(0);
+        Window.changeScene(2);
 
     }
     public void loop() {
