@@ -9,7 +9,7 @@ uniform mat4 uView;
 
 out vec4 fColor;
 
-void main(){
+void main() {
     fColor = aColor;
     gl_Position = uProj * uView * vec4(aPos, 1.0);
 }
@@ -17,10 +17,13 @@ void main(){
 #type fragment
 #version 330 core
 
+uniform float uTime;
+
 in vec4 fColor;
 
 out vec4 color;
 
-void main(){
-    color = fColor;
+void main() {
+    float avg = (fColor.r + fColor.g + fColor.b) / 3;
+    color = vec4(avg, avg, avg, 1);
 }
