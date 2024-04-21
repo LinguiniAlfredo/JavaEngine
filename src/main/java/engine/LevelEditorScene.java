@@ -1,5 +1,6 @@
 package engine;
 
+import components.SpriteRenderer;
 import org.joml.Vector2f;
 import org.lwjgl.BufferUtils;
 import renderer.Shader;
@@ -22,6 +23,10 @@ public class LevelEditorScene extends Scene {
     private Shader defaultShader;
     private Texture boxTexture;
 
+    private GameObject obj;
+
+    private boolean firstTime = true;
+
     public LevelEditorScene() {
     }
 
@@ -40,6 +45,12 @@ public class LevelEditorScene extends Scene {
 
     @Override
     public void init() {
+        System.out.println("Creating test object");
+        this.obj = new GameObject("test object");
+        this.obj.addComponent(new SpriteRenderer());
+        this.addGameObjectToScene(this.obj);
+
+
         this.camera = new Camera(new Vector2f(), new Vector2f(-1,-1));
         this.defaultShader = new Shader("assets/shaders/default.glsl");
         this.boxTexture = new Texture("assets/textures/box.png");
@@ -104,6 +115,18 @@ public class LevelEditorScene extends Scene {
 
         glBindVertexArray(0);
         defaultShader.detach();
+
+        if (firstTime) {
+            System.out.println("Creating game object 2");
+            GameObject go = new GameObject("Sprite Renderer 2");
+            go.addComponent(new SpriteRenderer());
+            this.addGameObjectToScene(go);
+            firstTime = false;
+        }
+
+        for (GameObject go : this.gameObjects) {
+            go.update(dt);
+        }
     }
 
 }

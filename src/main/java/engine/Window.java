@@ -50,14 +50,18 @@ public class Window {
             case 0:
                 currentScene = new LevelEditorScene();
                 currentScene.init();
+                currentScene.start();
                 break;
             case 1:
                 currentScene = new LevelScene();
                 currentScene.init();
+                currentScene.start();
+
                 break;
             case 2:
                 currentScene = new PauseScene();
                 currentScene.init();
+                currentScene.start();
             default:
                 assert false : "Unknown scene '" + scene + "'";
                 break;
@@ -136,7 +140,7 @@ public class Window {
         GL.createCapabilities();
 
         // set starting scene
-        Window.changeScene(2);
+        Window.changeScene(0);
 
     }
     public void loop() {
