@@ -10,13 +10,6 @@ import renderer.Texture;
 
 public class LevelEditorScene extends Scene {
 
-    private int vaoID, vboID, eboID;
-
-    private Shader defaultShader;
-    private Texture boxTexture;
-
-    private GameObject obj;
-
     public LevelEditorScene() {
     }
 
