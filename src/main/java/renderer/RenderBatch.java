@@ -12,7 +12,7 @@ import static org.lwjgl.opengl.GL20.*;
 
 public class RenderBatch {
 
-    private final int POS_SIZE = 3;
+    private final int POS_SIZE = 2;
     private final int COLOR_SIZE = 4;
     private final int POS_OFFSET = 0;
     private final int COLOR_OFFSET = POS_OFFSET + POS_SIZE * Float.BYTES;
@@ -57,8 +57,6 @@ public class RenderBatch {
         glEnableVertexAttribArray(0);
         glVertexAttribPointer(1, COLOR_SIZE, GL_FLOAT, false, VERTEX_SIZE_BYTES, COLOR_OFFSET);
         glEnableVertexAttribArray(1);
-        glVertexAttribPointer(2, POS_SIZE, GL_FLOAT, false, VERTEX_SIZE_BYTES, POS_OFFSET);
-        glEnableVertexAttribArray(2);
     }
 
     public void addSprite(SpriteRenderer sprite) {
