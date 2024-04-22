@@ -45,6 +45,10 @@ public class Window {
         return instance;
     }
 
+    public static Scene getScene() {
+        return get().currentScene;
+    }
+
     public static void changeScene(int scene) {
         switch(scene) {
             case 0:
@@ -56,12 +60,12 @@ public class Window {
                 currentScene = new LevelScene();
                 currentScene.init();
                 currentScene.start();
-
                 break;
             case 2:
                 currentScene = new PauseScene();
                 currentScene.init();
                 currentScene.start();
+                break;
             default:
                 assert false : "Unknown scene '" + scene + "'";
                 break;
