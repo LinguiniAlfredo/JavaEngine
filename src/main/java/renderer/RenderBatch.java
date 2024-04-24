@@ -3,6 +3,7 @@ package renderer;
 import components.SpriteRenderer;
 import engine.Window;
 import org.joml.Vector4f;
+import util.AssetPool;
 
 import static org.lwjgl.opengl.ARBVertexArrayObject.glBindVertexArray;
 import static org.lwjgl.opengl.ARBVertexArrayObject.glGenVertexArrays;
@@ -29,8 +30,7 @@ public class RenderBatch {
     private Shader shader;
 
     public RenderBatch(int batchSize) {
-        shader = new Shader("assets/shaders/default.glsl");
-        shader.compileAndLink();
+        shader = AssetPool.getShader("assets/shaders/default.glsl");
         this.sprites = new SpriteRenderer[batchSize];
         this.batchSize = batchSize;
 

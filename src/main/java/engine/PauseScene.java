@@ -91,10 +91,10 @@ public class PauseScene extends Scene {
         camera.position.x += (dt * 100.0f) * camera.direction.x;
         camera.position.y +=  (dt * 80.0f) * camera.direction.y;
 
-        if (Math.abs(camera.position.x) > Window.get().width - 50){
+        if (Math.abs(camera.position.x) > 32.0f * 40.0f - 50 ){
             camera.direction.x *= -1;
         }
-        if (Math.abs(camera.position.y) > Window.get().height - 50) {
+        if (Math.abs(camera.position.y) > 32.0f * 21.0f - 50) {
             camera.direction.y *= -1;
         }
 
