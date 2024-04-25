@@ -1,5 +1,6 @@
 package util;
 
+@Deprecated
 public class Time {
     public static float timeStarted = System.nanoTime();
 
