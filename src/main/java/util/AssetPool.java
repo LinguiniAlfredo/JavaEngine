@@ -27,7 +27,7 @@ public class AssetPool {
     public static Texture getTexture(String resourceName) {
         File file = new File(resourceName);
         if (textures.containsKey(file.getAbsolutePath())) {
-            return AssetPool.getTexture(file.getAbsolutePath());
+            return textures.get(file.getAbsolutePath());
         } else {
             Texture texture = new Texture(resourceName);
             textures.put(file.getAbsolutePath(), texture);
